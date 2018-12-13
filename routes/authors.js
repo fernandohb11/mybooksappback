@@ -39,5 +39,12 @@ router.get('/authors/:id', (req, res, next) =>{
 
 //D
 //(Delete by id)
+router.delete('/authors/:id', (req, res, next) =>{
+  Author.findByIdAndRemove(req.params.id)
+    .then(response =>{
+      res.json({message: "Ya valio v este autor."})
+    })
+    .catch(e => res.json(e))
+})
 
 module.exports = router;
