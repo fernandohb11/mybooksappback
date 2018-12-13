@@ -8,6 +8,10 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const passport = require('./helpers/passport')
+const session = require('express-session')
+const cors = require('cors')
+const MongoStore = require('connect-mongo')(session);
 
 
 mongoose
@@ -24,11 +28,30 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
+app.use(cors({
+  credentials:true,
+  origin:true
+}))
+
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection:mongoose.connection,
+    ttl:24*60*60
+  }),
+  secret:'oswaldinho',
+  resave:true,
+  saveUninitialized:true,
+  cookie:{httpOnly:true,maxAge:60000}  
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Express View engine setup
 
@@ -54,7 +77,9 @@ app.locals.title = 'Express - Generated with IronGenerator';
 const index = require('./routes/index');
 const authors = require('./routes/authors');
 const books = require('./routes/books');
+const authRoutes = require('./routes/auth')
 app.use('/', index);
+app.use('/api', authRoutes);
 app.use('/api', authors);
 app.use('/api', books);
 
