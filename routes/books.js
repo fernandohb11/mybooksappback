@@ -1,5 +1,6 @@
 const express = require('express');
 const Book = require('../models/Book');
+const Author = require('../models/Author')
 
 const router = express.Router();
 
@@ -12,7 +13,10 @@ router.post('/books', (req, res, next)=> {
     author: req.body.author
   })
     .then(response => {
-      res.json(response);
+      Author.findByIdAndUpdate(req.params.id, 
+        {$push: {books: response._id}})
+        .then(res.json(response))
+        .catch(e=>res.json(e))
     })
     .catch(e => res.json(e))
 })
@@ -37,6 +41,13 @@ router.get('/books/:id', (req, res, next) => {
 })
 
 //U
+router.put('/books/:id', (req, res, next) => {
+  Book.findByIdAndUpdate(req.params.id, {$set: req.body})
+    .then(response => {
+      res.json(response, {message: "Book updated successfully"})
+    })
+    .catch(e => res.json(e));
+})
 
 //D
 
