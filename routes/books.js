@@ -13,7 +13,7 @@ router.post('/books', (req, res, next)=> {
     author: req.body.author
   })
     .then(response => {
-      Author.findByIdAndUpdate(req.params.id, 
+      Author.findByIdAndUpdate(req.body.author, 
         {$push: {books: response._id}})
         .then(res.json(response))
         .catch(e=>res.json(e))

@@ -7,6 +7,7 @@ const router = express.Router();
 //(Create new author)
 router.post('/authors', (req, res, next) => {
   Author.create({
+    image: req.body.img,
     name: req.body.name,
     nationallity: req.body.nationallity,
     books: []

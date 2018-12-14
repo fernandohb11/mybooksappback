@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 // const Book = require('../models/Book');
 
 const authorSchema = new Schema({
+  image: String,
   name: String,
   nationallity: String,
   books: [
