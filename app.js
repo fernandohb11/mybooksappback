@@ -15,7 +15,7 @@ const MongoStore = require('connect-mongo')(session);
 
 
 mongoose
-  .connect('mongodb://localhost/mybooksappback', {useNewUrlParser: true})
+  .connect('mongodb://localhost/shop-DB', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -44,7 +44,7 @@ app.use(session({
     mongooseConnection:mongoose.connection,
     ttl:24*60*60
   }),
-  secret:'oswaldinho',
+  secret:'cookie',
   resave:true,
   saveUninitialized:true,
   cookie:{httpOnly:true,maxAge:60000}  
@@ -69,8 +69,6 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 
-// default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
 
 app.use(cors({
   credentials: true,
@@ -79,12 +77,12 @@ app.use(cors({
 
 
 const index = require('./routes/index');
-const authors = require('./routes/authors');
-const books = require('./routes/books');
+const user = require('./routes/user');
+
 const authRoutes = require('./routes/auth')
 app.use('/', index);
 app.use('/api', authRoutes);
-app.use('/api', authors);
-app.use('/api', books);
+app.use('/', user);
+
 
 module.exports = app;
