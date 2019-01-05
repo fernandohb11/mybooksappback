@@ -1,26 +1,23 @@
 const express = require('express');
 const Store = require('../models/Store');
-// const user = require('../models/User')
+const User = require('../models/User')
 
 const router = express.Router();
 
 //C
+
+
+
 router.post('/store', (req, res, next)=> {
-  Store.create({
-    title: req.body.title,
-    description: req.body.description,
-    price: req.body.price,
-    pictures: req.body.pictures,
-    category: req.body.category,
-    inventory: req.body.inventory
+  Store.create(req.body)
+  .then(store=>{
+    User.findByIdAndUpdate(req.body.user,{$push:{stores: store._id}}, { 'new': true})
+    .then(user=>{
+      res.status(201).json(user)
+    })
+    .catch(e=>res.status(500).json(e))
   })
-    // .then(response => {
-    //   Author.findByIdAndUpdate(req.body.user, 
-    //     {$push: {books: response._id}})
-    //     .then(res.json(response))
-    //     .catch(e=>res.json(e))
-    // })
-    .catch(e => res.json(e))
+  .catch(e=>res.status(500).json(e))
 })
 
 //R

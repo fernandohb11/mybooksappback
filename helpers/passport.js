@@ -1,8 +1,8 @@
 const passport = require('passport')
-const Author = require('../models/Author')
+const User = require('../models/User')
 
-passport.use(Author.createStrategy())
-passport.serializeUser(Author.serializeUser())
-passport.deserializeUser(Author.deserializeUser())
+passport.use(User.createStrategy())
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 module.exports = passport

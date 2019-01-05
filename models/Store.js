@@ -2,20 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const itemSchema = new Schema({
-  title: String,
-  description: String,
-  price: Number,
-  pictures: [],
-  category: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Category'
-  }],
-  inventory: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Inventory'
-  }]
-
+const storeSchema = new Schema({
+  tituloShop: String,
+  descriptionShop: String,
+  phoneShop: Number,
+  emailShop:String,
+  
 },{
   timestamps:{
     createdAt: true,
@@ -23,4 +15,4 @@ const itemSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('Store', itemSchema);
+module.exports = mongoose.model('Store', storeSchema);

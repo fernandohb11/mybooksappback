@@ -80,9 +80,13 @@ const index = require('./routes/index');
 const user = require('./routes/user');
 
 const authRoutes = require('./routes/auth')
+const store = require('./routes/store')
+const product = require('./routes/product')
 app.use('/', index);
 app.use('/api', authRoutes);
 app.use('/', user);
+app.use('/stores', store);
+app.use('/products', product);
 
 
 module.exports = app;

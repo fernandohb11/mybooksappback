@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const plm = require('passport-local-mongoose')
 
 
 const userSchema = new Schema({
@@ -26,5 +27,5 @@ const userSchema = new Schema({
     updatedAt:true
   }
 })
-
+userSchema.plugin(plm,{usernameField:'email'})
 module.exports = mongoose.model('User', userSchema);

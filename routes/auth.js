@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const Author = require('../models/Author')
+const User = require('../models/User')
 const passport = require('../helpers/passport')
 
 //Signup
 router.post('/signup', (req, res, next)=>{
-  Author.register(req.body, req.body.password)
+  User.register(req.body, req.body.password)
     .then(user=>{
       res.status(201).json(user)
     }).catch(e=>{
