@@ -82,11 +82,13 @@ const user = require('./routes/user');
 const authRoutes = require('./routes/auth')
 const store = require('./routes/store')
 const product = require('./routes/product')
+const allstores = require('./routes/store')
 app.use('/', index);
 app.use('/api', authRoutes);
 app.use('/', user);
 app.use('/stores', store);
 app.use('/products', product);
+app.use('/store', store);
 
 
 module.exports = app;

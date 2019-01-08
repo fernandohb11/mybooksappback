@@ -4,9 +4,9 @@ const plm = require('passport-local-mongoose')
 
 
 const userSchema = new Schema({
-  image: String,
-  name: String,
-  year: Number,
+  photoURL: String,
+  userName: String,
+  nombreUsuario:String,
   phone: String,
   address: [{
     type: Schema.Types.ObjectId,
