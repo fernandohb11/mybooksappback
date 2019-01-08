@@ -13,7 +13,7 @@ router.post('/store', (req, res, next)=> {
   .then(store=>{
     User.findByIdAndUpdate(req.body.user,{$push:{stores: store._id}}, { 'new': true})
     .then(user=>{
-      res.status(201).json(user)
+      res.status(201).json(store).json(user)
     })
     .catch(e=>res.status(500).json(e))
   })
@@ -26,6 +26,15 @@ router.get('/store', (req, res, next) => {
   Store.find()
    .then(response => {
      res.json(response);
+   })
+   .catch(e=>res.json(e))
+})
+
+//Get all userStores
+router.get('/stores/:id', (req, res, next) => {
+  User.findById(req.params.id).populate('stores')
+   .then(user => {
+     res.status(200).json(user);
    })
    .catch(e=>res.json(e))
 })

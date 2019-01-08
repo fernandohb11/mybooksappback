@@ -25,7 +25,16 @@ router.post('/login',(req, res, next)=>{
 })
 
 //logout
+router.get('/logout', (req, res, next)=>{
+  req.session.destroy()
+  //req.logOut()
+  res.status(200).json({message:'Logged out successful'})
+})
+
 
 //profile
+router.get('/profile' ,(req, res, next)=>{
+  return res.json(req.session.currentUser)
+})
 
 module.exports = router

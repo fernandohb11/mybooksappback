@@ -1,14 +1,21 @@
 const express = require('express');
 const Product = require('../models/Product');
-// const user = require('../models/User')
+const Store = require('../models/Store')
 
 const router = express.Router();
 
 //C
-router.post('/product', (req, res, next)=> {
+router.post('/product', (req, res, next) => {
+  console.log(req.body)
+  const store = req.body.store
   Product.create(req.body)
-  .then(response=>{
-    res.status(201).json(response)
+    .then(product => {
+     console.log(store)
+      Store.findByIdAndUpdate(store, { $push: { product: product._id } }, { 'new': true })
+        .then(store => {
+          console.log(store)
+          res.status(201).json(store)
+      }).catch(e=>res.status(500).json(e))
   })
   .catch(e=>res.status(500).json(e))
 })

@@ -1,10 +1,10 @@
 {
-  "name": "mybooksappback",
+  "name": "myshopspp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "DEBUG=mybooksappback:* nodemon ./bin/www",
+    "dev": "DEBUG=myshopspp:* nodemon ./bin/www",
     "dev-windows": "nodemon ./bin/www"
   },
   "dependencies": {

@@ -9,7 +9,8 @@ const productSchema = new Schema({
   categoriasItem:String,
   piezasItem:String,
   envioItem:String,
-  categoriasItem:String
+  categoriasItem:String,
+  photoURL:String
   
 },{
   timestamps:{

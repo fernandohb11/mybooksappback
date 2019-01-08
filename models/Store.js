@@ -7,6 +7,10 @@ const storeSchema = new Schema({
   descriptionShop: String,
   phoneShop: Number,
   emailShop:String,
+  product:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Product'
+  }]
   
 },{
   timestamps:{
