@@ -32,9 +32,9 @@ router.get('/product', (req, res, next) => {
 
 //get a single product
 router.get('/product/:id', (req, res, next) => {
-  Store.findById(req.params.id)
-   .then(response => {
-     res.json(response);
+  Store.findById(req.params.id).populate('product')
+   .then(store => {
+     res.json(store.product);
    })
    .catch(e=>res.json(e))
 })

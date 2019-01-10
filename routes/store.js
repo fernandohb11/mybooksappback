@@ -32,7 +32,13 @@ router.get('/store', (req, res, next) => {
 
 //Get all userStores
 router.get('/stores/:id', (req, res, next) => {
-  User.findById(req.params.id).populate('stores')
+  User.findById(req.params.id).populate({
+    path: 'stores',
+    populate: {
+      path: 'product',
+      model:'Product'
+    }
+  })
    .then(user => {
      res.status(200).json(user);
    })
